@@ -11,10 +11,21 @@ export default function App() {
   const [hasOpened, setHasOpened] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
+  const [musicAvailable, setMusicAvailable] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
   const currentScreen = SCREENS[currentIndex];
+
+  const updateMusicPlaying = (playing) => setMusicPlaying(playing);
 
   const handleOpeningComplete = useCallback(() => {
     setHasOpened(true);
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.currentTime = 132;
+    audio.play()
+      .then(() => setMusicPlaying(true))
+      .catch(() => setMusicPlaying(false));
     setCurrentIndex(0);
     setAnimationKey((key) => key + 1);
   }, []);
@@ -34,7 +45,14 @@ export default function App() {
   return (
     <main className="app-shell">
       <audio ref={audioRef} src={ASSETS.music} loop preload="auto" />
-
+      <audio
+        ref={audioRef}
+        src={ASSETS.music}
+        loop
+        preload="auto"
+        onCanPlayThrough={() => setMusicAvailable(true)}
+        onError={() => setMusicAvailable(false)}
+      />
       {!hasOpened && (
         <InvitationOpening
           onComplete={handleOpeningComplete}
@@ -65,7 +83,12 @@ export default function App() {
         </div>
       )}
 
-      <MusicController audioRef={audioRef} />
+      <MusicController
+            audio={audioRef.current}
+            available={musicAvailable}
+            playing={musicPlaying}
+            onPlayingChange={updateMusicPlaying}
+          />
       <div className="corner-caption" aria-hidden="true">
         <span>MADE WITH LOVE</span>
         <span className="caption-dot">✦</span>

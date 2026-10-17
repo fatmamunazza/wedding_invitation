@@ -55,7 +55,14 @@ export default function InvitationOpening({ onComplete, onReplay }) {
       className={`opening-scene phase-${phase}`}
       aria-label="Wedding invitation opening"
     >
-      <div className="scene-background" aria-hidden="true" />
+      <div
+        className="scene-background"
+        style={{
+          "--opening-background-mobile": `url("${ASSETS.mobileBackground}")`,
+          "--opening-background-desktop": `url("${ASSETS.desktopBackground}")`,
+        }}
+        aria-hidden="true"
+      />
       <div className="background-glow" aria-hidden="true" />
 
       {phase !== "opened" && (

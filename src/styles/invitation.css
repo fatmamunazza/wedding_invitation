@@ -10,11 +10,18 @@
 .invitation-background {
   position: absolute;
   inset: 0;
+  background-image: var(--background-mobile);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   filter: saturate(0.9) contrast(1.04);
   transform: scale(1.04);
+}
+
+@media (min-width: 768px) {
+  .invitation-background {
+    background-image: var(--background-desktop, var(--background-mobile));
+  }
 }
 
 .invitation-background::before {
@@ -37,12 +44,6 @@
   max-width: calc(100vw - 32px);
   max-height: calc(100vh - 128px);
   overflow: auto;
-  border-radius: 28px;
-  background: rgba(255, 249, 242, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 28px 60px rgba(24, 15, 10, 0.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   scrollbar-width: none;
 }
 
@@ -586,7 +587,6 @@
   .screen-shell {
     max-width: calc(100vw - 20px);
     max-height: calc(100vh - 112px);
-    border-radius: 20px;
   }
 
   .screen-page {

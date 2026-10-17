@@ -8,22 +8,34 @@ export const ASSETS = {
 };
 
 export const BACKGROUNDS = {
-  backgroundImage1: "/assets/invitation-background.png",
-  backgroundImage2: "/assets/details-background.jpg",
-  backgroundImage3: "/assets/blessing-background.jpg",
-  backgroundImage4: "/assets/WhatsApp Image 2026-10-17 at 4.42.31 PM.jpg",
+  backgroundImage1: {
+    mobile: ASSETS.mobileBackground,
+    desktop: ASSETS.desktopBackground,
+  },
+  backgroundImage2: {
+    mobile: "/assets/details-background.jpg",
+    desktop: "/assets/details-background.jpg",
+  },
+  backgroundImage3: {
+    mobile: "/assets/blessing-background.jpg",
+    desktop: "/assets/blessing-background.jpg",
+  },
+  backgroundImage4: {
+    mobile: "/assets/haldi-background.jpeg",
+    desktop: "/assets/haldi-desktop-background.jpeg",
+  },
 };
 
 export const SCREENS = [
-  { id: "screen-1", background: "backgroundImage1", sectionLabel: "Opening" },
-  { id: "screen-2", background: "backgroundImage2", sectionLabel: "Wedding Ceremony" },
-  { id: "screen-3", background: "backgroundImage3", sectionLabel: "Save the Date" },
-  { id: "screen-4", background: "backgroundImage4", sectionLabel: "Haldi" },
-  { id: "screen-5", background: "backgroundImage3", sectionLabel: "Meet the Couple" },
-  { id: "screen-6", background: "backgroundImage3", sectionLabel: "Munazza & Tajdar" },
-  { id: "screen-7", background: "backgroundImage3", sectionLabel: "Nikaah" },
-  { id: "screen-8", background: "backgroundImage3", sectionLabel: "Dua" },
-  { id: "screen-9", background: "backgroundImage3", sectionLabel: "Closing" },
+  { id: "screen-1", background: BACKGROUNDS.backgroundImage1, sectionLabel: "Opening" },
+  { id: "screen-2", background: BACKGROUNDS.backgroundImage2, sectionLabel: "Wedding Ceremony" },
+  { id: "screen-3", background: BACKGROUNDS.backgroundImage3, sectionLabel: "Save the Date" },
+  { id: "screen-4", background: BACKGROUNDS.backgroundImage4, sectionLabel: "Haldi" },
+  { id: "screen-5", background: BACKGROUNDS.backgroundImage3, sectionLabel: "Meet the Couple" },
+  { id: "screen-6", background: BACKGROUNDS.backgroundImage3, sectionLabel: "Munazza & Tajdar" },
+  { id: "screen-7", background: BACKGROUNDS.backgroundImage3, sectionLabel: "Nikaah" },
+  { id: "screen-8", background: BACKGROUNDS.backgroundImage3, sectionLabel: "Dua" },
+  { id: "screen-9", background: BACKGROUNDS.backgroundImage3, sectionLabel: "Closing" },
 ];
 
 export const JANUARY_2027_ROWS = [

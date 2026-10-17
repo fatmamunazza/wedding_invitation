@@ -8,7 +8,7 @@ export default function HaldiScreen() {
       time="Time : 07:00 PM"
       venue="At our residence"
       address="Hamam Pandriba Lane, Patna, Bihar 800008"
-      mapLocation="Hamam Pandriba Lane, Patna, Bihar 800008"
+      mapLocation="J637+HP9 Patna, Bihar"
     />
   );
 }

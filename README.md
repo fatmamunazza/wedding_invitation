@@ -32,7 +32,13 @@ Screen order and background assignments are maintained in `src/data/invitation.j
 
 ## Assets
 
-Keep the existing artwork and music in `public/assets/`. The app refers to those files by their `/assets/...` paths. The invitation backgrounds are mapped in `src/data/invitation.js`.
+Keep the existing artwork and music in `public/assets/`. The app refers to those files by their `/assets/...` paths. Responsive background pairs are configured in `src/data/invitation.js`:
+
+- Opening: `invitation-background.png` on mobile and `invitation-desktop-background.jpg` on desktop.
+- Haldi: `haldi-background.jpeg` on mobile and `haldi-desktop-background.jpeg` on desktop.
+- Ceremony and remaining screens use their existing background artwork at both sizes until separate variants are available.
+
+The opening scene and invitation screens switch to their desktop artwork at the `768px` breakpoint. Backgrounds use `cover` sizing to preserve proportions without distortion.
 
 ## Run locally
 
