@@ -1,46 +1,55 @@
 # Wedding Invitation React App
 
-A responsive Vite + React starter for the animated wedding invitation opening.
+A responsive Vite + React wedding invitation with a cinematic opening, nine navigable invitation screens, shared animation components, and centralized theme styles.
 
-## 1. Add your assets
+## Project structure
 
-Copy these existing files into `public/assets/`:
+```text
+src/
+├── App.jsx                         # App state and top-level composition
+├── main.jsx                        # React entry point
+├── index.css                       # Global styles and theme import
+├── components/
+│   ├── animation/Animated.jsx      # Shared entrance animation wrappers
+│   ├── opening/InvitationOpening.jsx
+│   ├── EventDetails.jsx            # Shared Haldi/Nikaah venue layout
+│   ├── InvitationBackground.jsx    # Background selection
+│   ├── InvitationNavigation.jsx    # Previous/next controls
+│   ├── JanuaryCalendar.jsx         # Reusable January 2027 calendar
+│   └── MusicController.jsx         # Audio playback and mute controls
+├── data/
+│   └── invitation.js               # Asset paths, screen order, calendar data
+├── screens/                        # One component per invitation screen
+└── styles/
+    ├── invitation.css              # Shared screen and component styles
+    ├── opening.css                 # Opening animation styles
+    └── theme.css                   # Fonts, colors, spacing, and timing tokens
+public/
+└── assets/                         # Backgrounds, artwork, and wedding music
+```
 
-- `invitation-background.png` — mobile background
-- `invitation-desktop-background.jpg` — desktop background
-- `left-side.png`
-- `right-side.png`
-- `ribbon.png`
-- `seal.png`
-- `wedding-music.mp3`
+Screen order and background assignments are maintained in `src/data/invitation.js`. Screen content lives in individual files under `src/screens`; shared layouts and controls belong in `src/components`. Theme tokens can be customized in `src/styles/theme.css`.
 
-The application references them using `/assets/...`. Keep the filenames exactly as listed.
+## Assets
 
-## 2. Run locally
+Keep the existing artwork and music in `public/assets/`. The app refers to those files by their `/assets/...` paths. The invitation backgrounds are mapped in `src/data/invitation.js`.
 
-Install Node.js (LTS), then from this project folder run:
+## Run locally
+
+Install Node.js (LTS), then run:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite.
-
-To verify a production build:
+Open the local URL printed by Vite. To create and preview a production build:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Opening experience
+## Invitation experience
 
-The app starts with the closed panels, ribbon, and seal. Click **Open invitation** to start the coordinated animation: the seal falls, the ribbon releases, and both panels slide outward in parallel. The background underneath is revealed, followed by a simple opening title. The opening does not replay on React re-renders; use **Replay opening** to intentionally reset it.
-
-Music autoplay is attempted, but some browsers block sound until a user gesture. Use the music control at the top right to play/pause or mute/unmute.
-
-## Notes
-
-- The panels currently use `object-fit: fill` so they meet at the center across the viewport. If your PNGs have different transparent padding or are not designed as half-screen panels, adjust `.invitation-panel`, `.panel-left`, and `.panel-right` in `src/styles/opening.css`.
-- The current post-opening content is a placeholder focused on the opening experience. Add the full invitation pages in `InvitationContent` once the opening is approved.
+The invitation begins with the closed panels and seal. Click **Open invitation** to reveal the invitation screens. Use the previous/next controls to navigate and **Replay opening** to return to the opening animation. Music autoplay is attempted, but some browsers require a user gesture; the top-right controls play/pause and mute/unmute the music.

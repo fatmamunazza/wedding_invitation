@@ -1,4 +1,6 @@
 @import "./styles/theme.css";
+@import "./styles/opening.css";
+@import "./styles/invitation.css";
 
 :root {
   font-family: var(--font-primary);
