@@ -14,7 +14,6 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: saturate(0.9) contrast(1.04);
   transform: scale(1.04);
 }
 
@@ -28,7 +27,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--background-overlay);
+  background: transparent;
 }
 
 .screen-stage {

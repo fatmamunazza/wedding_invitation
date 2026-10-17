@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import InvitationBackground from "./components/InvitationBackground.jsx";
 import InvitationNavigation from "./components/InvitationNavigation.jsx";
 import MusicController from "./components/MusicController.jsx";
@@ -6,8 +6,11 @@ import InvitationOpening from "./components/opening/InvitationOpening.jsx";
 import { ASSETS, SCREENS } from "./data/invitation.js";
 import InvitationScreen from "./screens/InvitationScreen.jsx";
 
+const AUTO_ADVANCE_DELAY_MS = 3000;
+
 export default function App() {
   const audioRef = useRef(null);
+  const screenContentRef = useRef(null);
   const [hasOpened, setHasOpened] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationKey, setAnimationKey] = useState(0);
@@ -42,6 +45,43 @@ export default function App() {
     setAnimationKey((key) => key + 1);
   }, []);
 
+  useEffect(() => {
+    if (!hasOpened || currentIndex === SCREENS.length - 1) return undefined;
+
+    let timeoutId;
+    const scheduleAdvance = () => {
+      window.clearTimeout(timeoutId);
+      if (document.hidden) return;
+
+      const animations =
+        screenContentRef.current?.getAnimations({ subtree: true }) ?? [];
+      const remainingEntranceDuration = animations.reduce((longest, animation) => {
+        const endTime = animation.effect?.getComputedTiming().endTime ?? 0;
+        const currentTime =
+          typeof animation.currentTime === "number" ? animation.currentTime : 0;
+        return Math.max(longest, endTime - currentTime);
+      },
+        0,
+      );
+
+      timeoutId = window.setTimeout(
+        () => {
+          if (!document.hidden) navigateTo(currentIndex + 1);
+        },
+        remainingEntranceDuration + AUTO_ADVANCE_DELAY_MS,
+      );
+    };
+
+    const handleVisibilityChange = () => scheduleAdvance();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    scheduleAdvance();
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.clearTimeout(timeoutId);
+    };
+  }, [animationKey, currentIndex, hasOpened, navigateTo]);
+
   return (
     <main className="app-shell">
       <audio ref={audioRef} src={ASSETS.music} loop preload="auto" />
@@ -69,6 +109,7 @@ export default function App() {
                 <div
                   className="animated-screen"
                   key={`${currentScreen.id}-${animationKey}`}
+                  ref={screenContentRef}
                 >
                   <InvitationScreen screenId={currentScreen.id} />
                 </div>
@@ -80,6 +121,13 @@ export default function App() {
             screenCount={SCREENS.length}
             onNavigate={navigateTo}
           />
+        </div>
+      )}
+
+      {!hasOpened && (
+        <div className="assalamoailkum" aria-label="Assalamu Alaikum">
+          <p dir="rtl" lang="ar">السَّلَامُ عَلَيْكُمْ</p>
+          <p lang="en">Assalamu Alaikum</p>
         </div>
       )}
 

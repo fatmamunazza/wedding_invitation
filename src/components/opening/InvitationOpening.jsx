@@ -116,7 +116,7 @@ export default function InvitationOpening({ onComplete, onReplay }) {
         </div>
       )}
 
-      {phase === "opened" && (
+      {phase === "opening" && (
         <div className="opened-message">
           <p className="eyebrow">You are cordially invited</p>
           <h1>Our Wedding</h1>
