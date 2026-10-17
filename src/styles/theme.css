@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap");
+
+:root {
+  --font-primary: "Cormorant Garamond", Georgia, serif;
+  --font-heading: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-script: "Great Vibes", "Cormorant Garamond", cursive;
+  --font-arabic: "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif;
+
+  --color-primary: #4a2e22;
+  --color-secondary: #85634d;
+  --color-accent: #c59a52;
+  --color-gold: #b58a49;
+  --color-ivory: #f3eadb;
+  --color-background: #f5efe6;
+  --background-overlay: rgba(27, 16, 12, 0.18);
+
+  --heading-size-xl: clamp(3.2rem, 7vw, 6.4rem);
+  --heading-size-lg: clamp(2.3rem, 5vw, 4.3rem);
+  --heading-size-md: clamp(1.9rem, 3.3vw, 2.8rem);
+  --heading-size-sm: clamp(1.2rem, 2vw, 1.8rem);
+
+  --body-size: clamp(1.08rem, 1.8vw, 1.5rem);
+  --body-size-sm: clamp(0.95rem, 1.6vw, 1.18rem);
+  --couple-name-size: clamp(2.5rem, 5vw, 4rem);
+
+  --section-spacing: 1.2rem;
+  --animation-duration: 900ms;
+  --animation-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --fade-duration: 600ms;
+  --transition-duration: 500ms;
+  --content-width: min(880px, 92vw);
+}

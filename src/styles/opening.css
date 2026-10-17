@@ -1,0 +1,347 @@
+#root { min-height: 100%; }
+.app-shell {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #f3e6d3;
+}
+
+.opening-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  perspective: 1600px;
+  background: #f3e6d3;
+  isolation: isolate;
+}
+
+.scene-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/assets/invitation-background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.015);
+}
+.background-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,.04), rgba(45,22,12,.12));
+  opacity: .55;
+  transition: opacity 1s ease;
+}
+
+.invitation-panels {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  perspective: 1600px;
+  pointer-events: none;
+}
+.panel-perspective {
+  position: relative;
+  min-width: 0;
+  height: 100%;
+  overflow: visible;
+  transform-style: preserve-3d;
+}
+.invitation-panel {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  will-change: transform;
+  backface-visibility: hidden;
+  user-select: none;
+}
+.panel-left { left: 0; transform-origin: left center; }
+.panel-right { right: 0; transform-origin: right center; }
+
+.invitation-ribbon {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 50%;
+  width: min(100vw, 1500px);
+  height: auto;
+  max-height: 32vh;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.invitation-seal {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: 50%;
+  width: clamp(76px, 12vw, 176px);
+  height: auto;
+  max-height: 24vh;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 20%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.opening-hint {
+  position: absolute;
+  z-index: 7;
+  left: 50%;
+  bottom: clamp(24px, 5vh, 58px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  color: #704c32;
+  text-align: center;
+  white-space: nowrap;
+  animation: hint-arrive 1s .25s both;
+}
+.opening-hint p {
+  margin: 0;
+  font-size: clamp(13px, 1.4vw, 17px);
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.hint-line { width: 42px; height: 1px; background: rgba(112,76,50,.55); }
+.open-invitation-button, .replay-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid rgba(112,76,50,.65);
+  border-radius: 999px;
+  padding: 10px 21px;
+  color: #704c32;
+  background: rgba(255,250,241,.76);
+  cursor: pointer;
+  font-size: 15px;
+  letter-spacing: .035em;
+  box-shadow: 0 5px 22px rgba(60,36,20,.08);
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+  backdrop-filter: blur(8px);
+}
+.open-invitation-button:hover, .replay-button:hover {
+  background: #fffaf1;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(60,36,20,.13);
+}
+.open-invitation-button span { font-size: 17px; }
+
+.opening-status {
+  position: absolute;
+  z-index: 8;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #704c32;
+  font-size: clamp(17px, 2vw, 24px);
+  font-style: italic;
+  text-shadow: 0 1px 10px rgba(255,255,255,.7);
+  white-space: nowrap;
+  animation: status-fade 1s ease both;
+}
+.opened-message {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  color: #704c32;
+  animation: content-arrive 1.2s .1s both;
+}
+.opened-message .eyebrow {
+  margin: 0 0 8px;
+  font-size: clamp(11px, 1.5vw, 16px);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+.opened-message h1 {
+  margin: 0;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(56px, 10vw, 112px);
+  line-height: 1.08;
+  font-weight: 400;
+  text-shadow: 0 2px 20px rgba(255,255,255,.48);
+}
+.opened-subtitle {
+  margin: 10px 0 24px;
+  font-size: clamp(17px, 2.3vw, 25px);
+  font-style: italic;
+}
+.replay-button { gap: 8px; padding: 8px 16px; font-size: 14px; }
+
+.music-controller {
+  position: absolute;
+  z-index: 20;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 6px 10px;
+  border: 1px solid rgba(115,81,53,.23);
+  border-radius: 999px;
+  color: #69482f;
+  background: rgba(255,250,241,.82);
+  box-shadow: 0 5px 22px rgba(45,25,12,.08);
+  backdrop-filter: blur(12px);
+}
+.music-indicator { display: grid; place-items: center; width: 26px; height: 26px; }
+.music-indicator.is-playing svg { animation: music-pulse 1.1s ease-in-out infinite; }
+.music-button, .icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 999px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.music-button { padding: 7px 9px; font-family: inherit; font-size: 14px; }
+.icon-button { width: 30px; height: 30px; }
+.music-button:hover, .icon-button:hover { background: rgba(112,76,50,.09); }
+.corner-caption {
+  position: absolute;
+  z-index: 10;
+  left: max(17px, env(safe-area-inset-left));
+  bottom: max(15px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: rgba(91,61,39,.7);
+  font-family: Georgia, serif;
+  font-size: 9px;
+  letter-spacing: .19em;
+  pointer-events: none;
+}
+.caption-dot { font-size: 11px; }
+
+.phase-opening .panel-left { animation: panel-left-open 2.75s cubic-bezier(.68,0,.25,1) .28s forwards; }
+.phase-opening .panel-right { animation: panel-right-open 2.75s cubic-bezier(.68,0,.25,1) .28s forwards; }
+.phase-opening .invitation-seal { animation: seal-fall 1.7s cubic-bezier(.55,.02,.8,.45) .02s forwards; }
+.phase-opening .invitation-ribbon { animation: ribbon-release 2.3s cubic-bezier(.42,0,.72,.35) .08s forwards; }
+.phase-opening .background-glow { animation: background-reveal 2.6s ease .3s forwards; }
+.phase-opening .opening-hint { animation: hint-away .35s ease forwards; }
+
+.phase-opened .scene-background { animation: background-settle .8s ease both; }
+.phase-opened .background-glow { opacity: .2; }
+
+@keyframes panel-left-open {
+  0% { transform: translateX(0) rotateY(0); }
+  18% { transform: translateX(-2%) rotateY(0); }
+  100% { transform: translateX(-112%) rotateY(-5deg); }
+}
+@keyframes panel-right-open {
+  0% { transform: translateX(0) rotateY(0); }
+  18% { transform: translateX(2%) rotateY(0); }
+  100% { transform: translateX(112%) rotateY(5deg); }
+}
+@keyframes seal-fall {
+  0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 1; }
+  22% { transform: translate(-48%, -26%) rotate(9deg); opacity: 1; }
+  48% { transform: translate(-45%, 28vh) rotate(22deg); opacity: 1; }
+  72% { transform: translate(-40%, 65vh) rotate(37deg); opacity: .9; }
+  100% { transform: translate(-34%, 100vh) rotate(52deg); opacity: 0; }
+}
+@keyframes ribbon-release {
+  0% { transform: translate(-50%, -50%) rotate(0deg) scaleX(1); opacity: 1; }
+  20% { transform: translate(-49%, -34%) rotate(-2deg) scaleX(.98); opacity: 1; }
+  48% { transform: translate(-45%, 12vh) rotate(4deg) scaleX(.91); opacity: .96; }
+  72% { transform: translate(-38%, 48vh) rotate(11deg) scaleX(.78); opacity: .78; }
+  100% { transform: translate(-28%, 95vh) rotate(19deg) scaleX(.6); opacity: 0; }
+}
+@keyframes background-reveal {
+  from { opacity: .55; }
+  to { opacity: .15; }
+}
+@keyframes background-settle {
+  from { transform: scale(1.015); }
+  to { transform: scale(1); }
+}
+@keyframes hint-arrive {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes hint-away {
+  to { opacity: 0; transform: translate(-50%, 10px); visibility: hidden; }
+}
+@keyframes status-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes content-arrive {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes music-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@media (min-width: 761px) {
+  .scene-background { background-image: url("/assets/invitation-desktop-background.jpg"); }
+  .invitation-panel { object-fit: fill; }
+  .invitation-ribbon { width: min(100vw, 1600px); max-height: 26vh; }
+  .invitation-seal { width: clamp(100px, 10vw, 170px); }
+}
+@media (max-width: 760px) {
+  .invitation-panels { grid-template-columns: 1fr 1fr; }
+  .invitation-panel { object-fit: fill; }
+  .invitation-ribbon { width: 120vw; max-height: 22vh; }
+  .invitation-seal { width: clamp(70px, 22vw, 120px); max-height: 19vh; }
+  .opening-hint { bottom: 7.5%; gap: 7px; }
+  .opening-hint p { font-size: 11px; letter-spacing: .11em; }
+  .open-invitation-button { padding: 9px 17px; font-size: 14px; }
+  .music-controller { top: max(10px, env(safe-area-inset-top)); right: max(10px, env(safe-area-inset-right)); gap: 2px; padding: 4px 5px 4px 7px; }
+  .music-button { padding: 6px 7px; font-size: 12px; }
+  .music-indicator { width: 22px; height: 22px; }
+  .corner-caption { font-size: 8px; }
+  .opened-message { padding: 18px; }
+  .opened-message h1 { font-size: clamp(54px, 15vw, 82px); }
+  .opened-subtitle { max-width: 280px; }
+  @keyframes panel-left-open {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-115%); }
+  }
+  @keyframes panel-right-open {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(115%); }
+  }
+}
+@media (max-height: 560px) and (orientation: landscape) {
+  .opening-hint { bottom: 12px; gap: 5px; }
+  .opening-hint p { font-size: 10px; }
+  .open-invitation-button { padding: 6px 14px; }
+  .invitation-seal { width: clamp(54px, 10vh, 100px); }
+  .invitation-ribbon { max-height: 20vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
